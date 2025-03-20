@@ -18,6 +18,8 @@ watch(() => producto.detalles.stock, (nuevoValor, viejoValor) => {
   console.log(`El stock cambió de ${viejoValor} a ${nuevoValor}`);
 });
 
+```
+
 ## 2️⃣ `watch()` permite escuchar cambios en propiedades específicas dentro de `reactive()`, explica cómo funciona.
 
 El método `watch()` permite reaccionar a cambios en una propiedad específica de un objeto reactivo.  
@@ -34,6 +36,8 @@ const producto = reactive({
 watch(() => producto.stock, (nuevoValor, viejoValor) => {
   console.log(`El stock cambió de ${viejoValor} a ${nuevoValor}`);
 });
+
+```
 
 ## 3️⃣ ¿Cómo harías que un `watch()` detecte cambios en `stock` dentro de un array de productos?
 
