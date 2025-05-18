@@ -1,14 +1,21 @@
 <script setup>
-import { reactive } from "vue";
+import { onMounted } from "vue";
 import { Inventory } from "../store/inventory";
 import InventoryItem from "./InventoryItem.vue";
 
-// Crear una instancia reactiva del inventario
-const inventory = reactive(new Inventory());
+const inventory = new Inventory();
 
-// Métodos para modificar stock
-const reduceStock = (index) => inventory.reduceStock(index);
-const increaseStock = (index) => inventory.increaseStock(index);
+const reduceStock = async (index) => {
+  await inventory.reduceStock(index);
+};
+
+const increaseStock = async (index) => {
+  await inventory.increaseStock(index);
+};
+
+onMounted(async () => {
+  await inventory.fetchProducts();
+});
 </script>
 
 <template>
@@ -29,15 +36,12 @@ const increaseStock = (index) => inventory.increaseStock(index);
       <tbody>
         <InventoryItem
           v-for="(producto, index) in inventory.products"
-          :key="index"
+          :key="producto.id"
           :producto="producto"
           :index="index"
           :reduceStock="reduceStock"
           :increaseStock="increaseStock"
         />
-        <tr v-if="inventory.products.length === 0">
-          <td colspan="5" class="empty-message">No hay productos en el inventario</td>
-        </tr>
       </tbody>
     </table>
   </div>
